@@ -26,6 +26,7 @@ function RandomBook() {
                 <span className='flex items-center gap-3'>  <GiCardRandom   className='text-blue-700 text-3xl' />
                     <span className='text-lg font-semibold'>Recommendation</span></span>
             </div>
+            
 
             <div className="rounded-lg border border-gray-100 mt-4">
 
@@ -34,7 +35,7 @@ function RandomBook() {
                     <span>Author</span>
                     <span>Subject</span>
                     <span className="text-center">
-                        Actions
+                        Add to Collection
                     </span>
                 </div>
 
