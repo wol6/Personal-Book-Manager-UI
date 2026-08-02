@@ -5,20 +5,22 @@ import { IoMdCloudDone } from "react-icons/io"
 import AddBookDialog from './AddBookDialog'
 import API from '../../../lib/axios'
 import RandomBook from './RandomBook'
+import MarkReadingDialog from './MarkReadingDialog'
 
 function Statics() {
+    const [isMark,setIsMark] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [counts, setCounts] = useState({
-        total:0,
-        wtotal:0,
-        rtotal:0,
-        ctotal:0
+        total: 0,
+        wtotal: 0,
+        rtotal: 0,
+        ctotal: 0
     })
 
     async function fetchCounts() {
         try {
             const { data: resp } = await API.get('/dashboard-counts')
-            if(resp.success){
+            if (resp.success) {
                 const counts = resp.counts
                 setCounts(counts)
             }
@@ -72,11 +74,13 @@ function Statics() {
 
             <div className='p-3 space-x-4 mt-1 mx-6 flex justify-end'>
                 <button onClick={() => setIsOpen(true)}
-                    className='border px-6 py-2 rounded-lg bg-indigo-700 text-xs font-semibold text-white'>Add Book</button>
-                <button className='border px-6 py-2 rounded-lg bg-blue-700 text-xs font-semibold text-white'>Add Tags</button>
+                    className='border px-6 py-2 rounded-lg bg-indigo-700 text-xs font-semibold text-white hover:cursor-pointer'>Add Book</button>
+                <button onClick={() => setIsMark(true)}
+                    className='border px-6 py-2 rounded-lg bg-blue-700 text-xs font-semibold text-white hover:cursor-pointer'>Mark Reading</button>
             </div>
-            <RandomBook/>
+            <RandomBook />
             <AddBookDialog onClose={() => setIsOpen(false)} isOpen={isOpen} />
+            <MarkReadingDialog onClose={() => setIsMark(false)} isOpen={isMark} />
         </div>
     )
 }

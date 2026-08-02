@@ -76,7 +76,7 @@ function Mylibrary() {
                 </div>
                 <div>
                     <button onClick={() => setIsOpen(true)}
-                        className='border px-6 py-2 rounded-lg bg-indigo-700 text-xs font-semibold text-white'>Add Book</button>
+                        className='border px-6 py-2 rounded-lg hover:cursor-pointer bg-indigo-700 text-xs font-semibold text-white'>Add Book</button>
                 </div>
             </div>
             <hr className='text-gray-200' />

@@ -193,7 +193,7 @@ function AddBookDialog({ isOpen, onClose, editObj }) {
 
                         <button
                             onClick={handleSubmit}
-                            className="rounded-lg bg-purple-700 px-5 py-2 text-sm font-medium text-white hover:bg-purple-800"
+                            className="rounded-lg bg-purple-700 px-5 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-purple-800"
                         >
                             {editObj ? "Update" : "Add"}
                         </button>

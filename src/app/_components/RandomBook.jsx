@@ -61,7 +61,7 @@ function RandomBook() {
                     </div>
 
                     <div className="flex justify-center gap-3">
-                        <button disabled className="text-indigo-100 hover:cursor-pointer">
+                        <button className="text-indigo-100 hover:cursor-not-allowed">
                             <GrAddCircle  className='text-2xl' />
                         </button>
                     </div>
