@@ -10,16 +10,20 @@ import AddBookDialog from './AddBookDialog';
 import API from '../../../lib/axios';
 
 function Mylibrary() {
+    const [search, setSearch] = useState('')
+    const [tags, setTags] = useState('')
     const [pageNo, setPageNo] = useState(0)
-    const [status,setStatus] = useState('')
+    const [status, setStatus] = useState('')
     const [isOpen, setIsOpen] = useState(false)
     const [bookArr, setBookArr] = useState([])
     const [editObj, setEditObj] = useState({})
 
+
+
     async function getBook() {
         try {
             const { data: resp } = await API.get('/get-book', {
-                params: { pageNo ,status}
+                params: { pageNo, status, tags: tags }
             })
             console.log(resp)
             if (resp.success) {
@@ -50,8 +54,15 @@ function Mylibrary() {
     }
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+            setTags(search)
+        }, 1000)
+        return () => clearTimeout(timer)
+    }, [search])
+
+    useEffect(() => {
         getBook()
-    }, [isOpen, pageNo,status])
+    }, [isOpen, pageNo, status, tags])
 
     return (
         <div className='w-full'>
@@ -76,23 +87,25 @@ function Mylibrary() {
                         <span className='text-lg font-semibold'>Books</span></span>
 
                     <div className='flex items-center'>
+                        <input type="text" className='border border-gray-200 mr-4 px-4 py-2.5 rounded-lg text-gray-600 font-medium'
+                            placeholder='Search By Tags' onChange={(e) => setSearch(e.target.value)} />
                         <select
-                            onChange={(e)=>setStatus(e.target.value)}
+                            onChange={(e) => setStatus(e.target.value)}
                             name="status"
-                            className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 mr-4 outline-none focus:border-purple-600"
+                            className="w-full rounded-lg border border-gray-300 text-gray-600 font-medium bg-white px-4 py-2.5 mr-4 outline-none focus:border-purple-600"
                         >
-                             <option value="">
-                               Select Status
+                            <option value="" className='text-gray-600'>
+                                Select Status
                             </option>
-                            <option value="want-to-read">
+                            <option value="want-to-read" className='text-gray-600 font-medium'>
                                 Want to Read
                             </option>
 
-                            <option value="reading">
+                            <option value="reading" className='text-gray-600 font-medium'>
                                 Reading
                             </option>
 
-                            <option value="completed">
+                            <option value="completed" className='text-gray-600 font-medium'>
                                 Completed
                             </option>
                         </select>
@@ -115,6 +128,7 @@ function Mylibrary() {
                             <span>Title</span>
                             <span>Author</span>
                             <span>Status</span>
+                            <span>Tags</span>
                             <span className="text-center">
                                 Actions
                             </span>
@@ -129,6 +143,14 @@ function Mylibrary() {
                                         <span className='flex items-center gap-3'>
                                             <IoMdBookmarks className='text-black-700 text-3xl' />
                                             <span>{book.title}</span>
+                                            {book.tags?.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="text-white bg-gray-500 rounded-xl px-2 py-0.5 text-xs"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
                                         </span>
                                     </div>
 

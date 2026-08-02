@@ -18,7 +18,6 @@ function Statics() {
     async function fetchCounts() {
         try {
             const { data: resp } = await API.get('/dashboard-counts')
-            console.log(resp)
             if(resp.success){
                 const counts = resp.counts
                 setCounts(counts)

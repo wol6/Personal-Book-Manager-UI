@@ -19,3 +19,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 5.View your book list
 6.Filter by status ,tags on list
 ```
+# BackEnd Repo URL: 
+'https://github.com/wol6/Personal-Book-Manager-API'
+
+# Live URL :
+'https://personal-book-manager-ui.vercel.app/'
