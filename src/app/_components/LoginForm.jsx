@@ -22,6 +22,7 @@ function LoginForm() {
         try{
             const {data:resp} = await API.post('/signin',loginObj)
             if(resp.success){
+                sessionStorage.setItem('username',resp.name)
                 router.push('/dashboard')
             }
         }catch(err){

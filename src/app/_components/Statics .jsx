@@ -8,6 +8,7 @@ import RandomBook from './RandomBook'
 import MarkReadingDialog from './MarkReadingDialog'
 
 function Statics() {
+    const [userName,setuserName] = useState('')
     const [isMark,setIsMark] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [counts, setCounts] = useState({
@@ -29,13 +30,15 @@ function Statics() {
         }
     }
     useEffect(() => {
+        const name = sessionStorage.getItem("username")
+        setuserName(name)
         fetchCounts()
     }, [])
     return (
         <div className='w-full'>
             <div className='p-12'>
                 <span className='flex items-center gap-3'>  <FaBookOpen className='text-purple-700 text-4xl' />
-                    <span className='text-3xl font-bold'>Welcome back, Alwyn!</span></span>
+                    <span className='text-3xl font-bold'>Welcome back, {userName}!</span></span>
                 <span className='text-gray-400'>Track your reading journey here.</span>
             </div>
 

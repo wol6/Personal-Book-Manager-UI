@@ -11,8 +11,9 @@ function NavBar() {
     const router = useRouter()
     async function handleLogout() {
         try {
-            const {data:resp} = await API.post('/logout')
-            if(resp.success){
+            const { data: resp } = await API.post('/logout')
+            if (resp.success) {
+                sessionStorage.clear()
                 router.push('/login')
             }
         } catch (e) {
