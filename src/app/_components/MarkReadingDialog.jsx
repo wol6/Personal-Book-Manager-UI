@@ -130,7 +130,8 @@ function MarkReadingDialog({ isOpen, onClose }) {
                                              bg-blue-600 text-white hover:bg-blue-700 active:scale-95
                                         }`}
                                     >
-                                        {isLoading ? "Marking..." : "Read"}
+                                        {/* {isLoading ? "Marking..." : "Read"} */}
+                                        Read
                                     </button>}
                                 {book.status == 'reading' &&
                                     <button
@@ -139,7 +140,8 @@ function MarkReadingDialog({ isOpen, onClose }) {
                                             bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95
                                             }`}
                                     >
-                                        {isLoading ? "Marking..." : "Completed"}
+                                        {/* {isLoading ? "Marking..." : "Completed"} */}
+                                        Completed
                                     </button>}
 
                             </div>
