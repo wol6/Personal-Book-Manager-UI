@@ -3,9 +3,11 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import API from '../../../lib/axios';
 import { useRouter } from 'next/navigation';
+import { RiLoader2Fill } from "react-icons/ri";
 
 function LoginForm() {
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
     const [loginObj, setLoginObj] = useState({
         email: '',
         password: ''
@@ -18,6 +20,7 @@ function LoginForm() {
         })
     }
     async function handleSignIn(e) {
+        setIsLoading(true)
         e.preventDefault()
         try {
             const { data: resp } = await API.post('/signin', loginObj)
@@ -27,6 +30,8 @@ function LoginForm() {
             }
         } catch (err) {
             console.log(err)
+        } finally {
+            setIsLoading(false)
         }
     }
     return (
@@ -60,8 +65,9 @@ function LoginForm() {
 
 
                     <button onClick={handleSignIn}
-                        className='w-full bg-indigo-600 hover:cursor-pointer hover:bg-indigo-700 text-white font-semibold rounded-xl px-4 py-1.5 text-sm transaction-colors-400'
-                    >Sign In</button>
+                        className='flex justify-center items-center w-full bg-indigo-600 hover:cursor-pointer hover:bg-indigo-700 text-white font-semibold rounded-xl px-4 py-1.5 text-sm transaction-colors-400'
+                    >{isLoading && <RiLoader2Fill />
+                        }{isLoading ? 'Signing In...' : 'Sign In'}</button>
                 </div>
                 <p className="text-center text-sm text-gray-500">
                     Don't have an account?{' '}

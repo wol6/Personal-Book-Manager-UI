@@ -13,6 +13,7 @@ function Mylibrary() {
     const [search, setSearch] = useState('')
     const [tags, setTags] = useState('')
     const [pageNo, setPageNo] = useState(0)
+    const [lastPage, setLastPage] = useState(0)
     const [status, setStatus] = useState('')
     const [isOpen, setIsOpen] = useState(false)
     const [bookArr, setBookArr] = useState([])
@@ -28,6 +29,8 @@ function Mylibrary() {
             console.log(resp)
             if (resp.success) {
                 const books = resp.lists ?? []
+                let count = books.length == 4 ? 4 : 0
+                setLastPage(count)
                 setBookArr(books)
             }
         } catch (e) {
@@ -110,11 +113,11 @@ function Mylibrary() {
                             </option>
                         </select>
 
-                        <button onClick={() => setPageNo(pageNo - 1)} className='hover:cursor-pointer'>
-                            <FaChevronCircleDown className='text-3xl text-indigo-800' />
+                        <button disabled={lastPage==0} onClick={() => setPageNo(pageNo + 1)} className={`${lastPage==0 ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}>
+                            <FaChevronCircleDown className={`text-3xl ${lastPage==0 ? "text-indigo-300" : "text-indigo-800"}`} />
                         </button>
-                        <button onClick={() => setPageNo(pageNo + 1)} className='hover:cursor-pointer'>
-                            <FaChevronCircleUp className='text-3xl text-indigo-800' />
+                        <button disabled={pageNo == 0} onClick={() => setPageNo(pageNo - 1)} className={`${pageNo == 0 ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}>
+                            <FaChevronCircleUp className={`text-3xl ${pageNo == 0 ? "text-indigo-300" : "text-indigo-800"}`} />
                         </button>
 
                     </div>
@@ -195,7 +198,7 @@ function Mylibrary() {
                     </div>
                 ) : (
                     <div className="rounded-lg border border-gray-100 text-gray-500 font-medium  text-center mt-4">
-                        No Books Added
+                        No collection
                     </div>
                 )}
 

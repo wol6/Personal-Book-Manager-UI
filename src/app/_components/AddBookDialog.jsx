@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
+import { RiLoader2Fill } from "react-icons/ri";
 import API from '../../../lib/axios'
 
 function AddBookDialog({ isOpen, onClose, editObj }) {
@@ -12,6 +13,7 @@ function AddBookDialog({ isOpen, onClose, editObj }) {
         status: "want-to-read"
     }
     const [bookObj, setBookObj] = useState(initialObj)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         if (isOpen) {
@@ -31,6 +33,7 @@ function AddBookDialog({ isOpen, onClose, editObj }) {
     }
 
     async function handleSubmit(e) {
+        setIsLoading(true)
         e.preventDefault()
         try {
             if (editObj) {
@@ -49,6 +52,8 @@ function AddBookDialog({ isOpen, onClose, editObj }) {
 
         } catch (e) {
             console.log(e)
+        }finally{
+            setIsLoading(false)
         }
     }
     return (
@@ -70,7 +75,7 @@ function AddBookDialog({ isOpen, onClose, editObj }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="text-2xl text-gray-500 hover:text-gray-800"
+                            className="text-2xl text-gray-500 hover:text-gray-800 hover:cursor-pointer"
                         >
                             X
                         </button>
@@ -193,9 +198,10 @@ function AddBookDialog({ isOpen, onClose, editObj }) {
 
                         <button
                             onClick={handleSubmit}
-                            className="rounded-lg bg-purple-700 px-5 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-purple-800"
+                            className="flex justify-center items-center rounded-lg bg-purple-700 px-5 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-purple-800"
                         >
-                            {editObj ? "Update" : "Add"}
+                            {isLoading && <RiLoader2Fill />}
+                            {editObj ? isLoading? 'Updating...' : "Update" : isLoading ?"Adding...": "Add"}
                         </button>
 
                     </div>

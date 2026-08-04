@@ -3,10 +3,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import API from '../../../lib/axios';
+import { RiLoader2Fill } from "react-icons/ri";
 
 function RegisterForm() {
 
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
     const [registerObj, setRegisterObj] = useState({
         name: "",
         email: "",
@@ -23,6 +25,7 @@ function RegisterForm() {
     }
 
     async function handleRegister(e) {
+        setIsLoading(true)
         e.preventDefault()
 
         if (registerObj.password !== registerObj.cpassword) {
@@ -38,6 +41,8 @@ function RegisterForm() {
         }
         catch (err) {
             console.log(err)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -87,8 +92,9 @@ function RegisterForm() {
                     </div>
 
                     <button onClick={handleRegister}
-                        className='w-full bg-indigo-600 hover:cursor-pointer hover:bg-indigo-700 text-white font-semibold rounded-xl px-4 py-1.5 text-sm transaction-colors-400'
-                    >SignUp</button>
+                        className='flex justify-center items-center w-full bg-indigo-600 hover:cursor-pointer hover:bg-indigo-700 text-white font-semibold rounded-xl px-4 py-1.5 text-sm transaction-colors-400'
+                    >{isLoading && <RiLoader2Fill />}
+                        {isLoading ? "Signing Up..." : "SignUp"}</button>
                 </div>
                 <p className="text-center text-sm text-gray-500">
                     Already have an account?{' '}
